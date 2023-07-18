@@ -77,7 +77,7 @@ print("-------------------------------------")
 
 
 #! Special methods (init, str)
-#! Encapsulation
+#! Encapsulation & Abstraction
 
 
 class Person:
@@ -87,13 +87,23 @@ class Person:
     def __init__(self, name, age):
         self.name = name
         self.age = age
+        self._salary = 3000   # tek underscore uyari maksatli ve ulailabilir disaridan
+        self.__id = 35     # disaridan ulasilamaz
 
     def __str__(self):  #instance cagirildiginda gosterilecek bilgiler icin olusturulan metod
         return f"{self.name} - {self.age}"
 
 
 person1 = Person("hasan", 20)
+
 print(person1)
+print(person1._salary)
+person1._salary = 4000
+print(person1._salary)
+# print(person1.__id)  # class icerisinde olmasina ragmen doubleunderscore lu yazinca ulasilamiyor. (encapsulation)
+
+person1._Person__id = 23  #! Ancak bu sekilde ulasilabilir oluyor.
+print(person1._Person__id)
 
 
 
