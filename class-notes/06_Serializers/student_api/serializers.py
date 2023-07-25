@@ -33,7 +33,6 @@ class StudentSerializer(serializers.ModelSerializer):
     #* "StringRelatedField" foreign key oldugunda ilgili id nosunu verdigi icin, bu kod ile ilgili string donuyor.
     path_id = serializers.IntegerField()
 
-
     class Meta:
         model = Student
         fields = "__all__"
@@ -44,3 +43,14 @@ class StudentSerializer(serializers.ModelSerializer):
         import datetime
         current_time = datetime.datetime.now()
         return current_time.year - obj.age    
+
+
+class PathSerializer(serializers.ModelSerializer):
+     
+     #! her iki durumda da read_only ekledik, cunku path eklerken ogrenci olusturmak zorunda kalmayalim diye
+    #students = serializers.StringRelatedField(many=True, read_only=True)
+    students = StudentSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Path
+        fields = "__all__"

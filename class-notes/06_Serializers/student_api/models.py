@@ -1,11 +1,12 @@
 
 #! models de yapilacak herhangi bir degisiklik database de hataya neden olabilir, 
-#! o yuzden database i silip tekrar mograte komutlariyla olusturulur.
+#! o yuzden database i silip tekrar migrate komutlariyla olusturulur.
 
 from django.db import models
 
 class Path(models.Model):
     path_name = models.CharField(max_length=50)
+    # students
 
     def __str__(self):
         return f"{self.path_name}"
@@ -19,4 +20,4 @@ class Student(models.Model):
     age = models.IntegerField()
 
     def __str__(self):
-        return f"{self.last_name} {self.first_name}"
+        return f"{self.first_name} {self.last_name}"
