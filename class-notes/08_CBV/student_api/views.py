@@ -9,7 +9,8 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 from rest_framework.generics import GenericAPIView, mixins, ListCreateAPIView, RetrieveUpdateDestroyAPIView
-# Create your views here.
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.decorators import action
 
 
 def home(request):
@@ -181,11 +182,33 @@ class StudentDetailGAV(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixin
 # * ############  Concrete View Classes ####################
 
 class StudentCV(ListCreateAPIView):
-
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
 class StudentDetailCV(RetrieveUpdateDestroyAPIView):
-
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+
+
+
+
+class StudentMVS(ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+    @action(detail=False, methods=["GET"])
+    def student_count(self, request):
+        count = {
+            "student-count": self.queryset.count(),
+        }
+        return Response(count)
+    
+class PathMVS(ModelViewSet):
+    queryset = Path.objects.all()
+    serializer_class = PathSerializer
+
+    @action(detail=True)
+    def student_names(self, request, pk=None):
+        path = self.get_object()
+        students = path.students.all()
+        return Response([i.first_name for i in students])
