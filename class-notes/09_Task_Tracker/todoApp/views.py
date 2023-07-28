@@ -46,3 +46,25 @@ def todo_get_delete_update(request, pk):
         todo.delete()
         message={"message":"Successfully deleted!"}
         return Response(message, status=HTTP_400_BAD_REQUEST)
+    
+
+#*######## Class Based Views ###########
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+
+class Todos(ListCreateAPIView):
+    queryset=Todo.objects.all()
+    serializer_class=TodoSerializer
+
+class TodosRUD(RetrieveUpdateDestroyAPIView):
+    queryset=Todo.objects.all()
+    serializer_class=TodoSerializer
+    # lookup_field=id   #! eger pk degil de id kullanmak istersek bunu yaziyoruz. Sadece class based de var bu.
+
+
+#*######## MSV (model view set) ###########
+from rest_framework.viewsets import ModelViewSet
+
+class TodosMVS(ModelViewSet):
+    queryset=Todo.objects.all()
+    serializer_class=TodoSerializer
+    
