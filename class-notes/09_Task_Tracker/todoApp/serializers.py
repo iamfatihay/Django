@@ -3,7 +3,7 @@ from .models import Todo
 class TodoSerializer(serializers.ModelSerializer):
     class Meta:
         model=Todo
-        fields=(
+        fields=(        #! (__all__) butun field lerin gelmesini istersek.
             'task',
             'description',
             'priority',
