@@ -246,6 +246,8 @@ class StudentMVS(ModelViewSet):
 class PathMVS(ModelViewSet):
     queryset= Path.objects.all()
     serializer_class = PathSerializer
+    filter_backends=[SearchFilter, DjangoFilterBackend, OrderingFilter]
+    filterset_fields = ['path_name']
 
         
     
