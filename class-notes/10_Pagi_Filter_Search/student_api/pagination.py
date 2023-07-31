@@ -1,4 +1,4 @@
-from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
+from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination, CursorPagination
 
 
 class MyNumberPagination(PageNumberPagination):
@@ -10,3 +10,8 @@ class MyNumberPagination(PageNumberPagination):
 class MyLimitPagination(LimitOffsetPagination):
     default_limit = 8
     limit_query_param = "kac_tane"
+    offset_query_param = "kacinci"
+
+class MyCursorPagination(CursorPagination):
+    page_size = 10
+    ordering = "first_name"    
