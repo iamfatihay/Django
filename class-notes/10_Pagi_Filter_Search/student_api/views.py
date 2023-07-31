@@ -220,6 +220,8 @@ class StudentDetailCV(RetrieveUpdateDestroyAPIView):
 # MVS variable isimleri sabit. 
 
 from .pagination import MyNumberPagination, MyLimitPagination, MyCursorPagination
+from rest_framework.filters import SearchFilter, OrderingFilter
+from django_filters.rest_framework import DjangoFilterBackend
 
 class StudentMVS(ModelViewSet):
     queryset = Student.objects.all()
@@ -235,8 +237,10 @@ class StudentMVS(ModelViewSet):
     #         my_path = Path.objects.get(path_name=path)
     #         queryset = queryset.filter(path=my_path.id)
     #     return queryset
-    
+    filter_backends=[SearchFilter, DjangoFilterBackend, OrderingFilter]
     filterset_fields = ['first_name','last_name']
+    search_fields = ['last_name', ]
+    ordering_fields = ['number', ]
     
         
 class PathMVS(ModelViewSet):
