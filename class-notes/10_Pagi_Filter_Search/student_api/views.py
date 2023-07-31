@@ -217,10 +217,14 @@ class StudentDetailCV(RetrieveUpdateDestroyAPIView):
      
     
 #! Viewsets
+# MVS variable isimleri sabit. 
+
+from .pagination import MyNumberPagination
 
 class StudentMVS(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    pagination_class = MyNumberPagination
     
         
 class PathMVS(ModelViewSet):
