@@ -220,12 +220,13 @@ class StudentDetailCV(RetrieveUpdateDestroyAPIView):
 from .pagination import MyNumberPagination,MyLimitPaginatian,MyCursorPaginatian
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter,OrderingFilter
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 
 class StudentMVS(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
-    permission_classes = [IsAuthenticated]  #! Bu veriye erisimi kontrol etmek icin
+   # permission_classes = [IsAuthenticated]  #! Bu veriye erisimi kontrol etmek icin
+    permission_classes = [IsAdminUser] 
 
 
     pagination_class=MyNumberPagination 
