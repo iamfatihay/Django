@@ -16,8 +16,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    
+    # my_apps
     "student_api",
     "users",
+    
+    # third_party_apps
     "rest_framework",
     "django_filters",
     "rest_framework.authtoken",
