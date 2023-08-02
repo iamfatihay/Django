@@ -1,16 +1,21 @@
-from django.db import models
+from rest_framework import serializers
+from .models import Blog, Category
 
-class Blog(models.Model):
 
-    user_id=models.ForeignKey()
-    category_id=models.CharField(max_length=100)
-    title=models.CharField(null=True, max_length=100)
-    content=models.TextField(null=True)
-    created_date=models.DateTimeField(auto_now_add=True, null=True) #! Ilk task eklenirken eklenir sadece
-    updated_date=models.DateTimeField(auto_now=True)  #! her islem degisikliginde tarih ekler
+class BlogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Blog
+        fields=("__all__")
+        # fields=(  
+        #     'id',      #! (__all__) butun field lerin gelmesini istersek.
+        #     'task',
+        #     'description',
+        #     'priority',
+        #     'is_done',
+        #     'created_date'
+        # )
 
-    def __str__(self):   #! Admin panelde nasil gorecegimizi belirliyoruz.
-        return f"{self.title}"
-    
-    # class Meta:   
-    #     ordering=["priority"]
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = "__all__"

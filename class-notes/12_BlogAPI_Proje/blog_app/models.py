@@ -1,10 +1,18 @@
 from django.db import models
-from django.conf import settings
+from django.contrib.auth.models import User
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 
 class Blog(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    category_id=models.CharField(max_length=100)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title=models.CharField(null=True, max_length=100)
     content=models.TextField(null=True)
     created_date=models.DateTimeField(auto_now_add=True, null=True) #! Ilk task eklenirken eklenir sadece
@@ -15,6 +23,5 @@ class Blog(models.Model):
     
     # class Meta:   
     #     ordering=["priority"]
-from django.db import models
 
-# Create your models here.
+
