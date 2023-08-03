@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # my_apps
     'blog_app',
+    'user',
 
     # third_party_apps
     'rest_framework',
