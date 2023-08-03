@@ -27,9 +27,7 @@ class Blog(models.Model):
         verbose_name_plural = 'Blogs '
 
     def __str__(self):   #! Admin panelde nasil gorecegimizi belirliyoruz.
-        return f"{self.title}"
+        return f"{self.category} - {self.title}"
     
-    # class Meta:   
-    #     ordering=["priority"]
 
 
