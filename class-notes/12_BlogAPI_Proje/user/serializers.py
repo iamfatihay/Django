@@ -12,3 +12,13 @@ class UserSerializer(serializers.ModelSerializer):
             "groups",
             "user_permissions",
         ]
+    
+    def validate(self, attrs):
+        from django.contrib.auth.password_validation import validate_password  #! dogrulama fonk. 
+        from django.contrib.auth.hashers import make_password  #!sifreleme fonk.
+        password = attrs['password']  #! password u al
+        validate_password(password)  #! validation
+        attrs.update({
+            'password': make_password(password)   #! password sifrele ve guncelle
+        })
+        return super().validate(attrs)
