@@ -5,4 +5,10 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        exclude = []
+        exclude = [
+            # "password",
+            "last_login",
+            "date_joined",
+            "groups",
+            "user_permissions",
+        ]
