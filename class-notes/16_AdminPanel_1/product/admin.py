@@ -6,6 +6,11 @@ from .models import *
 # * #########################
 # *  PRODUCT
 # * #########################
+class ReviewInline(admin.TabularInline):
+    model = Review  #! ForeignKey modul name
+    extra = 1  #! Yeni yorum ekleme alani
+    classes = ["collapse"]
+
 
 
 class ProductAdmin(ModelAdmin):
@@ -54,6 +59,7 @@ class ProductAdmin(ModelAdmin):
         }),
     )
     """
+    inlines = [ReviewInline]
 
     def set_stock_in(self, request, queryset):
         count = queryset.update(is_in_stock=True)
