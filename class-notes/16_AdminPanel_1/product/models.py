@@ -1,7 +1,21 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+        
+    def __str__(self):
+        return self.name
+    
+
 class Product(models.Model):
+    categories = models.ManyToManyField(Category, related_name="products")
     name = models.CharField(max_length=100)
     # description = models.TextField(blank=True, null=True)
     description = RichTextField(blank=True, null=True)

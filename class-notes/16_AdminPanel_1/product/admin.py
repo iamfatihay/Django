@@ -81,6 +81,13 @@ class ProductAdmin(ModelAdmin):
 
     list_display += ("added_days_ago",)
 
+    # Kaçtane yorum var:
+    def how_many_reviews(self, object):
+        count = object.reviews.count()
+        return count
+    
+    list_display += ('how_many_reviews',)
+
 
 admin.site.register(Product, ProductAdmin)
 
