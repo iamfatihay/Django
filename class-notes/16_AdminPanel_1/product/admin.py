@@ -80,6 +80,13 @@ admin.site.register(Product, ProductAdmin)
 
 
 # * #########################
-# *  PRODUCT
+# *  REVIEW
 # * #########################
-admin.site.register(Review)
+class ReviewAdmin(ModelAdmin):
+    list_display = ("__str__", "created_date")
+    raw_id_fields = ("product",)
+
+
+
+
+admin.site.register(Review, ReviewAdmin)
