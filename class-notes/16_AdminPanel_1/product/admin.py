@@ -2,6 +2,13 @@ from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from .models import *
 
+# * #########################
+# *  CATEGORY
+# * #########################
+admin.site.register(Category)
+
+
+
 
 # * #########################
 # *  PRODUCT
@@ -38,8 +45,11 @@ class ProductAdmin(ModelAdmin):
     fields = (
         ("name", "is_in_stock"),
         ("slug"),
+        ("categories"),
         ("description"),
     )
+    # filter_vertical = ["categories"]
+    filter_horizontal = ["categories"]
     """
     #* Detayli form liste görüntüleme:
     fieldsets = (
