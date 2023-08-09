@@ -19,7 +19,13 @@ class ProductAdmin(ModelAdmin):
     )  #! Tablo sutunlari
     list_editable = ["is_in_stock"]  #! Tablo uzerinde edit islemi yapabilme
     list_display_links = ["id", "name"]  #! Kayda gitmek icin linkleme
-    list_filter = ["is_in_stock", "create_date", "update_date"]
+    list_filter = ["is_in_stock", "create_date", "update_date"]  #! filtreleme
+    search_fields = ["id", "name"]  #! Searching
+    search_help_text = "Arama yapmak icin burayi kullaniniz"
+    ordering = ["id"]  #! "id" >> ASC   "-id" >> DESC
+    list_per_page = 20  #! Sayfa basi product sayisi
+    list_max_show_all = 200 #! Tumunu goster derken max gosterim sayisi
+    date_hierarchy = "create_date"
 
 
 admin.site.register(Product, ProductAdmin)
