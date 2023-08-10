@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from .models import *
+from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter
+from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
 
 admin.site.site_title = 'Clarusway Title'   #! Title
 admin.site.site_header = 'Clarusway Header'  #! Page header
@@ -31,7 +33,7 @@ class ProductAdmin(ModelAdmin):
     )  #! Tablo sutunlari
     list_editable = ["is_in_stock"]  #! Tablo uzerinde edit islemi yapabilme
     list_display_links = ["id", "name"]  #! Kayda gitmek icin linkleme
-    list_filter = ["is_in_stock", "create_date", "update_date"]  #! filtreleme
+    list_filter = [('name', DropdownFilter), 'is_in_stock', ('create_date', DateRangeFilter), ('update_date',DateTimeRangeFilter )]  #! filtreleme
     search_fields = ["id", "name"]  #! Searching
     search_help_text = "Arama yapmak icin burayi kullaniniz"
     ordering = ["id"]  #! "id" >> ASC   "-id" >> DESC
@@ -125,6 +127,7 @@ admin.site.register(Product, ProductAdmin)
 class ReviewAdmin(ModelAdmin):
     list_display = ("__str__", "created_date")
     raw_id_fields = ("product",)
+    list_filter = [('product', RelatedDropdownFilter)]
 
 
 admin.site.register(Review, ReviewAdmin)

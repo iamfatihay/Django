@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #modules
+    'django_admin_listfilter_dropdown',
+    "rangefilter",
     'ckeditor',
     # Apps:
     'product',
