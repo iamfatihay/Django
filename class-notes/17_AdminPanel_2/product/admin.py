@@ -3,6 +3,9 @@ from django.contrib.admin.options import ModelAdmin
 from .models import *
 from django_admin_listfilter_dropdown.filters import DropdownFilter, RelatedDropdownFilter
 from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
 
 admin.site.site_title = 'Clarusway Title'   #! Title
 admin.site.site_header = 'Clarusway Header'  #! Page header
@@ -22,15 +25,17 @@ class ReviewInline(admin.TabularInline):
     classes = ["collapse"]
 
 
-class ProductAdmin(ModelAdmin):
-    list_display = (
-        "id",
-        "name",
-        "description",
-        "is_in_stock",
-        "create_date",
-        "update_date",
-    )  #! Tablo sutunlari
+# Import-Export ModelResource:
+class ProductResource(resources.ModelResource):
+    class Meta:
+        model = Product
+
+
+# class ProductAdmin(ModelAdmin):
+class ProductAdmin(ImportExportModelAdmin):
+    resource_class = ProductResource
+    # Tablo sutunları (model field names)
+    list_display = ('id', 'name', 'is_in_stock', 'create_date', 'update_date')
     list_editable = ["is_in_stock"]  #! Tablo uzerinde edit islemi yapabilme
     list_display_links = ["id", "name"]  #! Kayda gitmek icin linkleme
     list_filter = [('name', DropdownFilter), 'is_in_stock', ('create_date', DateRangeFilter), ('update_date',DateTimeRangeFilter )]  #! filtreleme

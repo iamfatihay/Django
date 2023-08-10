@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'grappelli', # En üstte olacak. Bu admin template package
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     #modules
     'django_admin_listfilter_dropdown',
     "rangefilter",
+    'import_export',
     'ckeditor',
     # Apps:
     'product',
