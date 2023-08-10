@@ -2,6 +2,9 @@ from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from .models import *
 
+admin.site.site_title = 'Clarusway Title'   #! Title
+admin.site.site_header = 'Clarusway Header'  #! Page header
+admin.site.index_title = 'Clarusway Index Page' #! Index subheader
 # * #########################
 # *  CATEGORY
 # * #########################

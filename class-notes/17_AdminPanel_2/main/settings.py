@@ -59,7 +59,9 @@ ROOT_URLCONF = 'main.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / "templates/"   #! Once bu dosyaya bakacak template icin, boyle bir dosya yoksa .env deki default templateleri kullanacak.
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
