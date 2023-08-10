@@ -8,8 +8,6 @@ from .models import *
 admin.site.register(Category)
 
 
-
-
 # * #########################
 # *  PRODUCT
 # * #########################
@@ -17,7 +15,6 @@ class ReviewInline(admin.TabularInline):
     model = Review  #! ForeignKey modul name
     extra = 1  #! Yeni yorum ekleme alani
     classes = ["collapse"]
-
 
 
 class ProductAdmin(ModelAdmin):
@@ -41,9 +38,12 @@ class ProductAdmin(ModelAdmin):
     prepopulated_fields = {
         "slug": ["name"]
     }  #! name i doldurunca otomatik slug olusturuyor
+    # Resim gösterme read_only olarak çağır:
+    readonly_fields = ["view_image"]
     # Form liste görüntüleme:
     fields = (
         ("name", "is_in_stock"),
+        ("image", "view_image"),
         ("slug"),
         ("categories"),
         ("description"),
@@ -89,14 +89,28 @@ class ProductAdmin(ModelAdmin):
         different = timezone.now() - object.create_date
         return different.days
 
+    added_days_ago.short_description = "Days"
     list_display += ("added_days_ago",)
 
     # Kaçtane yorum var:
     def how_many_reviews(self, object):
         count = object.reviews.count()
         return count
-    
-    list_display += ('how_many_reviews',)
+
+    how_many_reviews.short_description = "Reviews"
+    list_display += ("how_many_reviews",)
+
+    # Listede küçük resim göster:
+    def view_image_in_list(self, obj):
+        from django.utils.safestring import mark_safe
+
+        if obj.image:
+            return mark_safe(
+                f'<img src={obj.image.url} style="height:30px; width:30px;"></img>')
+        return "-*-"
+
+    view_image_in_list.short_description = "Image"
+    list_display = ("view_image_in_list",) + list_display
 
 
 admin.site.register(Product, ProductAdmin)
@@ -108,8 +122,6 @@ admin.site.register(Product, ProductAdmin)
 class ReviewAdmin(ModelAdmin):
     list_display = ("__str__", "created_date")
     raw_id_fields = ("product",)
-
-
 
 
 admin.site.register(Review, ReviewAdmin)
