@@ -1,13 +1,13 @@
-# Altyapi:
+# Altyapı:
 FROM python:alpine3.18
 
-# Calisma Alani:
+# Çalışma Alanı:
 WORKDIR /app
 
-# Dosyalari aktar
-# COPY [LOCALFILES] [DOCKER FILES]
+# Dosyaları Aktar:
+# COPY [LOCALFILES] [DOCKERFILES]
 # COPY app.py /app/
-COPY . .     
+COPY . .
 
-# After Build, When Run:
-CMD python app.py
+# After Build, When Run (sh):
+CMD python app.py 
