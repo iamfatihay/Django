@@ -1,0 +1,13 @@
+# Altyapi:
+FROM python:alpine3.18
+
+# Calisma Alani:
+WORKDIR /app
+
+# Dosyalari aktar
+# COPY [LOCALFILES] [DOCKER FILES]
+# COPY app.py /app/
+COPY . .     
+
+# After Build, When Run:
+CMD python app.py
