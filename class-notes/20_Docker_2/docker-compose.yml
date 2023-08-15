@@ -1,0 +1,26 @@
+version: "1.0"  # optional
+
+services:
+
+    frontend:
+        # container_name: "anotherName"    # Container a farkli isim vermek icin 
+        image: "docker-compose-frontend"
+        build: ./frontend
+        ports: 
+            - 3000:3000
+            - 80:3000 
+        restart: on-failure 
+        depends_on:   # Önce asagadaki servisi calistir.
+            - backend
+
+    backend:
+        # Varsa kullan, yoksa build et:
+        image: "docker-compose-backend"
+        # Proje klasörü:
+        build: ./backend
+        # Portlar:
+        ports: 
+            - 8000:8000  # Dis port : Ic port
+        restart: on-failure  # Hata durumunda stop/start yap.
+    
+    
