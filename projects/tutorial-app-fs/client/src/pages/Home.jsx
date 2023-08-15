@@ -6,7 +6,7 @@ import TutorialList from "../components/TutorialList"
 const Home = () => {
   const [tutorials, setTutorials] = useState([])
 
-  const BASE_URL = "http://tutorial-api.fullstack.clarusway.com/tutorials/";
+  const BASE_URL = "http://127.0.0.1:8000/tutorials/";
 
   const getTutorials = async () => {
     try {
