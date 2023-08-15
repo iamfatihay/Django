@@ -1,0 +1,21 @@
+# PYTHON
+#* tam sürüm
+# FROM python
+#* medium level
+FROM python:slim-bullseye
+
+# Base Direction for App:
+WORKDIR /backend
+
+# Files:
+# COPY ./requirement.txt /backend/requirement.txt
+COPY . .
+
+# Installation app-requirements:
+# RUN pip install -r requirements.txt --no-cache-dir
+RUN pip install -r requirements.txt 
+
+# Run after container:
+CMD python manage.py runserver 0.0.0.0:8000
+
+
