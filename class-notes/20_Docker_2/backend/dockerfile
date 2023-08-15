@@ -1,21 +1,29 @@
-# PYTHON
-#* tam sürüm
+# Python:
+# last version:
 # FROM python
-#* medium level
-FROM python:slim-bullseye
+# light version
+FROM python:3.10.8-slim-bullseye
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
 
-# Base Direction for App:
+# Set main folder in docker:
 WORKDIR /backend
 
-# Files:
-# COPY ./requirement.txt /backend/requirement.txt
-COPY . .
+# Copy file from local to docker:
+COPY requirements.txt /backend/requirements.txt
 
-# Installation app-requirements:
-# RUN pip install -r requirements.txt --no-cache-dir
-RUN pip install -r requirements.txt 
+# Run shell-command in docker before build:
+RUN pip install -r requirements.txt --no-cache-dir
 
-# Run after container:
-CMD ["python manage.py runserver 0.0.0.0:8000"]
+# copy all from local-files (.) to docker (/backend):
+COPY . /backend
 
+# Run shell-script:
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# App Port (optional)
+EXPOSE 8000
 
+# docker build ./backend -t backend_1
+#* disaridaki porttan iceerideki porta erismek icin bunu kullaniyoruz
+# docker run -p 8000:8000 --name con_1 backend_1
+# docker run -d -p 8000:8000 --name con_1 backend_1   #! deamon mode (arka planda calismasi icin)
