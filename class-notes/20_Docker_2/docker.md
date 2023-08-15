@@ -59,3 +59,39 @@
     $ exit
 
 ```
+
+```sh
+
+    # Komple temizlik:
+    $ docker system prune -a -f
+
+```
+
+```sh
+
+    # DOCKERHUB
+    $ docker login -u <username> -p <password>
+    $ docker login # AutoLogin
+    $ docker tag <oldname> <username/newname>
+    # Upload to DockerHub
+    $ docker push <username/newname> 
+    # Download from DockerHub
+    $ docker pull <username/newname> 
+
+```
+
+```sh
+
+    # DOCKER COMPOSE
+    # docker-compose.yml
+    $ docker-compose up
+    $ docker-compose up -d # deamon mode: arka planda çalış.
+    $ docker-compose up -d --build # tekrardan build et.
+    $ docker-compose down # Compose kapat, container sil.
+    $ docker compose down -v # compose tümünü kapat.
+
+```
+
+Bonus: SuperMario:
+    $ docker run -d -p 8600:8080 bharathshetty4/supermario
+    # open http://localhost:8600

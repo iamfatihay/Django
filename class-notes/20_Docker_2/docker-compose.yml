@@ -1,16 +1,16 @@
-version: "1.0"  # optional
+version: "1.0" # opsiyonel
 
 services:
 
     frontend:
-        # container_name: "anotherName"    # Container a farkli isim vermek icin 
+        # container_name: "anotherName" # Container farklı isim ver.
         image: "docker-compose-frontend"
         build: ./frontend
-        ports: 
+        ports:
             - 3000:3000
-            - 80:3000 
-        restart: on-failure 
-        depends_on:   # Önce asagadaki servisi calistir.
+            - 80:3000
+        restart: on-failure
+        depends_on: # önce aşağıdaki servisi çalıştır.
             - backend
 
     backend:
@@ -20,7 +20,7 @@ services:
         build: ./backend
         # Portlar:
         ports: 
-            - 8000:8000  # Dis port : Ic port
-        restart: on-failure  # Hata durumunda stop/start yap.
-    
-    
+            - 8000:8000 # Dış Port : İç Port
+        restart: on-failure # Hata durunda stop/start yap.
+        volumes: # fiziksel yollar (external:internal) 
+            - $PWD/backend/db.sqlite3:/backend/db.sqlite3
