@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # my_apps
-    'personal',
+    'personel',
     'user',
 
     # third_party_apps
