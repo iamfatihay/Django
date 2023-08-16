@@ -5,6 +5,6 @@ from rest_framework import routers
 router=routers.DefaultRouter()
 router.register("department", Department)
 router.register('personel', Personel)
-router.register('profile', Profile)
+# router.register('profile', Profile)
 
 urlpatterns = router.urls
