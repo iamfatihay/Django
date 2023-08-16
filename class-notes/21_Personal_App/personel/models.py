@@ -34,3 +34,12 @@ class Personel(models.Model):
 
     def __str__(self):  
         return f"{self.first_name} - {self.last_name}"
+    
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+    about = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.user.username
