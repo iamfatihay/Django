@@ -198,3 +198,5 @@ REST_AUTH = {
 
 #! kendi modelinizi kullanacaksaniz:
 # AUTH_USER_MODEL = 'users.MyUser'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR 
