@@ -1,6 +1,33 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to="pictures", default="avatar.png")
+    about = models.TextField(blank=True, null=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#! Eger djangoun kendi user modelini kullanmayacaksaniz
+#! asagadaki gibi AbstractUser dan inherit edip kendi modelinizi olusturabulirsiniz
+#! settings.py a yeni user u tanimlamak gerekir.
+#* # AUTH_USER_MODEL = 'users.MyUser'  
+
 # from django.contrib.auth.models import AbstractUser
 # from django.conf import settings
 # from datetime import date
