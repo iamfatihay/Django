@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework.generics import (CreateAPIView)
+from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView
 from django.contrib.auth.models import User
 from .serializers import RegisterSerializer
 
@@ -36,3 +36,13 @@ class RegisterView(CreateAPIView):
 
     # def perform_create(self, serializer):
     #     serializer.save()
+
+
+from .serializers import ProfileSerializer
+from .models import Profile
+# from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import Is
+
+class ProfileUpdateView(RetrieveUpdateAPIView):
+    serializer_class = ProfileSerializer
+    queryset = Profile.objects.all()
