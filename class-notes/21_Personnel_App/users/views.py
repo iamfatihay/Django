@@ -41,8 +41,9 @@ class RegisterView(CreateAPIView):
 from .serializers import ProfileSerializer
 from .models import Profile
 # from rest_framework.permissions import IsAdminUser
-from rest_framework.permissions import Is
+from .permissions import IsOwnerOrStaff
 
 class ProfileUpdateView(RetrieveUpdateAPIView):
     serializer_class = ProfileSerializer
     queryset = Profile.objects.all()
+    permission_classes = [IsOwnerOrStaff]
