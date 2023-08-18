@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     "dj_rest_auth",
     # my apps
     "users",
+    "personnel",
 ]
 
 MIDDLEWARE = [

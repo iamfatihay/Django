@@ -59,6 +59,15 @@ class CustomTokenSerializer(TokenSerializer):
 
 from .models import Profile
 class ProfileSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField()
+    user_id = serializers.IntegerField(required = False)
+
     class Meta:
         model = Profile
-        fields = "__all__"
+        fields = "__all__" 
+
+    def update(self, instance, validated_data):
+        instance = super().update(instance, validated_data)
+        instance.user_id = self.context["request"].user.id
+        instance.save()
+        return instance
