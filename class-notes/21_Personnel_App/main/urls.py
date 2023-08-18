@@ -38,6 +38,8 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     # my urls
     path("users/", include("users.urls")),
+    path("api/", include("personnel.urls")),
+
 ]
 # image kullandığım için
 from django.conf import settings
