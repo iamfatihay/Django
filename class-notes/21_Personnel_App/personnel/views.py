@@ -24,6 +24,7 @@ class Personnel_GPD_UPDATE_View(RetrieveUpdateDestroyAPIView):   #! GPD = Get, p
     queryset = Personnel.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]  #! eger authentice kullanici ise get put delete yapabilir, degilse sadece get
 
+    #* Burada put ve delete islemlerini override yaptik
     def put(self, request, *args, **kwargs):
         instance = self.get_object()
         if self.request.user.is_staff and (instance.create_user == self.request.user):
