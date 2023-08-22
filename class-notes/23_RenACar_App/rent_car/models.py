@@ -1,33 +1,27 @@
-from django.db import models
 from django.contrib.auth.models import User
-
-# Create your models here.
-DAY=(
-    (1,"one day"),
-    (2,"two days"),
-    (3,"three days"),
-    (4,"four days"),
-    (5,"five days"),
-    (6,"six days"),
-    (7,"seven days"),
-)
+from django.db import models
 
 class Car(models.Model):
+    id = models.AutoField(primary_key=True)
+    plate_number = models.CharField(max_length=20)
+    brand = models.CharField(max_length=100)
+    model = models.CharField(max_length=100)
+    year = models.PositiveIntegerField()
+    gear = models.CharField(max_length=20)
+    rent_per_day = models.DecimalField(max_digits=10, decimal_places=2)
+    availability = models.BooleanField(default=True)
 
-    plate_number=models.CharField(max_length=30)
-    brand=models.CharField(max_length=30)
-    model=models.CharField(max_length=30)
-    year=models.SmallIntegerField()
-    gear=models.CharField(max_length=30) 
-    rent_per_day=models.CharField(max_length=1,choices=DAY)
-    availability=models.BooleanField()
-    
     def __str__(self):
-        return  f"{self.plate_number} {self.brand} {self.rent_per_day}"
+        return  f"{self.id} {self.plate_number} {self.rent_per_day}"
     
 
 class Reservation(models.Model):
-    start_date=models.DateTimeField(auto_now_add=True)
-    end_date=models.DateTimeField(auto_now=True)
+    id = models.AutoField(primary_key=True)
+    start_date = models.DateField(null=True)
+    end_date = models.DateField(null=True)
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)  
+
     def __str__(self):
-        return self.name
+        return  f"{self.car} {self.customer} {self.end_date}"
+
