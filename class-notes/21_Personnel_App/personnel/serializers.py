@@ -22,10 +22,15 @@ class DepartmentSerializer(FixModel):
         return obj.personnels.count()
 
 
+from django.utils.timezone import now
+
 class PersonnelSerializer(FixModel):
     # user = serializers.StringRelatedField()
     # user_id = serializers.IntegerField(required = False)
-
+    days_since_started = serializers.SerializerMethodField()
     class Meta:
         model = Personnel
         fields = "__all__"
+
+    def get_days_since_started(self,obj):      
+        return (now()-obj.start_date).days
