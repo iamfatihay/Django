@@ -14,6 +14,8 @@ class DepartmentSerializer(FixModel):
     
     #! method field lar sadece read_only dir.
     personnel_count = serializers.SerializerMethodField()
+    #! bu satir ile departmana ait personel bilgileri de gelsin istersek ekleyebiliriz.
+    personnels = serializers.StringRelatedField(many=True)
     class Meta:
         model = Department
         fields = "__all__" 

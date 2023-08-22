@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .serializers import DepartmentSerializer, PersonnelSerializer
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
 from .models import Department, Personnel
 from rest_framework.permissions import IsAdminUser, IsAuthenticatedOrReadOnly
 from .permissions import IsStaffOrReadOnly
@@ -42,3 +42,13 @@ class Personnel_GPD_UPDATE_View(RetrieveUpdateDestroyAPIView):   #! GPD = Get, p
                 "message": "You are not authorized to perform this operation"
             }
             return Response(data, status=status.HTTP_401_UNAUTHORIZED)
+
+#! Slash dan sonra daha once hep id no ile verilere erisimi gorduk, bu sefer girilen isimi "name" de tutup,
+#! onla eslesen departmanin verilerini getiriryoruz.
+class DepartmentPersonnelView(ListAPIView):
+    serializer_class = DepartmentSerializer
+    queryset = Department.objects.all()
+    
+    def get_queryset(self):
+        name = self.kwargs["department"]
+        return Department.objects.filter(name__iexact=name)
