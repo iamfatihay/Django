@@ -18,8 +18,9 @@ class DepartmentSerializer(FixModel):
     personnels = serializers.StringRelatedField(many=True)
     class Meta:
         model = Department
-        fields = "__all__" 
-    
+        # fields = "__all__" 
+        fields = ("id", "name","personnels","personnel_count")
+
     def get_personnel_count(self,obj):
         return obj.personnels.count()
 
