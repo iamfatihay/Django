@@ -2,26 +2,26 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class Car(models.Model):
-    id = models.AutoField(primary_key=True)
-    plate_number = models.CharField(max_length=20)
+    plate_number = models.CharField(max_length=20, unique=True)
     brand = models.CharField(max_length=100)
     model = models.CharField(max_length=100)
-    year = models.PositiveIntegerField()
+    year = models.SmallIntegerField()
     gear = models.CharField(max_length=20)
-    rent_per_day = models.DecimalField(max_digits=10, decimal_places=2)
+    rent_per_day = models.PositiveIntegerField()
     availability = models.BooleanField(default=True)
 
     def __str__(self):
-        return  f"{self.id} {self.plate_number} {self.rent_per_day}"
+        return  f"{self.availability} - {self.plate_number} - {self.rent_per_day}"
     
 
 class Reservation(models.Model):
-    id = models.AutoField(primary_key=True)
-    start_date = models.DateField(null=True)
-    end_date = models.DateField(null=True)
+    start_date = models.DateField()
+    end_date = models.DateField()
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)  
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True) 
 
     def __str__(self):
-        return  f"{self.car} {self.customer} {self.end_date}"
+        return  f"{self.car.plate_number} - {self.customer.username} - {self.end_date}"
 

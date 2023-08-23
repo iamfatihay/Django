@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import *
+from .models import Car, Reservation
 
 class CarSerializer(serializers.ModelSerializer):   
     class Meta:
@@ -7,6 +7,10 @@ class CarSerializer(serializers.ModelSerializer):
         fields="__all__"
 
 class ReservationSerializer(serializers.ModelSerializer):
+    # class Meta:
+    #     model = Reservation
+    #     fields = '__all__'
+
     car = serializers.StringRelatedField()
     car_id = serializers.IntegerField(required=False)
 
