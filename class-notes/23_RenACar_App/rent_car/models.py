@@ -1,5 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
+from datetime import date
+
 
 class Car(models.Model):
     plate_number = models.CharField(max_length=20, unique=True)
@@ -11,17 +13,17 @@ class Car(models.Model):
     availability = models.BooleanField(default=True)
 
     def __str__(self):
-        return  f"{self.availability} - {self.plate_number} - {self.rent_per_day}"
+        return  f"{self.brand} - {self.model} - {self.rent_per_day}"
     
 
 class Reservation(models.Model):
-    start_date = models.DateField()
-    end_date = models.DateField()
+    start_date = models.DateField(default=date.today)
+    end_date = models.DateField(default=date.today)
     car = models.ForeignKey(Car, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True) 
 
     def __str__(self):
-        return  f"{self.car.plate_number} - {self.customer.username} - {self.end_date}"
+        return  f"{self.car.plate_number} - {self.customer} - {self.end_date}"
 
