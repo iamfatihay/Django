@@ -1,8 +1,12 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from .models import Car, Reservation
 from .serializers import CarSerializer, ReservationSerializer
 from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework import serializers
+
 
 class CarListView(ListCreateAPIView):
     queryset = Car.objects.all()
@@ -12,23 +16,32 @@ class CarListView(ListCreateAPIView):
     search_fields = ['plate_number', 'brand', 'model']
 
 class ReservationListView(ListCreateAPIView):
+    queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
     filter_backends = [OrderingFilter, SearchFilter]
     ordering_fields = ['start_date', 'end_date']
     search_fields = ['car__plate_number', 'customer__username']
 
-    def get_queryset(self):
-        # Oturum açmış kullanıcının kimliğini alın
-        user_id = self.request.user.id
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     user_id = self.request.user.id
+    #     if user.is_superuser:
+    #         return Reservation.objects.all()
+    #     return Reservation.objects.filter(customer=user_id)
 
-        # Kullanıcının rezervasyonlarını getirin
-        queryset = Reservation.objects.filter(customer=user_id)
-        return queryset
+
+    # def get_queryset(self):
+    #     # Oturum açmış kullanıcının kimliğini alın
+    #     user_id = self.request.user.id
+
+    #     # Kullanıcının rezervasyonlarını getirin
+    #     queryset = Reservation.objects.filter(customer=user_id)
+    #     return queryset
 
 class ReservationDetailView(RetrieveUpdateDestroyAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsAdminUser]
 
     def perform_update(self, serializer):
         user = self.request.user
@@ -37,8 +50,38 @@ class ReservationDetailView(RetrieveUpdateDestroyAPIView):
 
     def perform_destroy(self, instance):
         user = self.request.user
+        print("User ID:", user.id)
+        print("Reservation Customer ID:", instance.customer.id)
+    
         if instance.customer == user:
             instance.delete()
+        else:
+            print("User and Customer not matching.")
+            return Response({"message": "You don't have permission to delete this reservation."}, status=status.HTTP_403_FORBIDDEN)
+    
+    def perform_create(self, serializer):
+        car_id = serializer.validated_data['car_id']
+        start_date = serializer.validated_data['start_date']
+        end_date = serializer.validated_data['end_date']
+
+        # Kontrol edin: Bu araba belirtilen tarihlerde zaten kiralanmış mı?
+        conflicting_reservations = Reservation.objects.filter(
+            car_id=car_id,
+            start_date__lte=end_date,
+            end_date__gte=start_date
+        )
+
+        if self.request.user.is_authenticated:
+            if conflicting_reservations.exists():
+                raise serializers.ValidationError("This car is already reserved for the selected dates.")
+            
+            serializer.save(customer=self.request.user)
+        else:
+            return Response({"message": "Authentication credentials were not provided."}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+
+
 
 
 

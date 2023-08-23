@@ -13,7 +13,7 @@ class Car(models.Model):
     availability = models.BooleanField(default=True)
 
     def __str__(self):
-        return  f"{self.brand} - {self.model} - {self.rent_per_day}"
+        return  f"{self.brand} - {self.model}"
     
 
 class Reservation(models.Model):

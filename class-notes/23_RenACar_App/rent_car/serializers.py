@@ -7,23 +7,17 @@ class CarSerializer(serializers.ModelSerializer):
         fields="__all__"
 
 class ReservationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Reservation
-        fields = '__all__'
-
-    # car = serializers.StringRelatedField()
-    # car_id = serializers.IntegerField(required=False)
-
-    # customer=serializers.StringRelatedField()
-    # customer_id=serializers.IntegerField(required=False)
-
     # class Meta:
-    #     model=Reservation
-    #     fields=(
-    #         "id",
-    #         "car", 
-    #         "car_id", 
-    #         "customer",  
-    #         "customer_id",
-    #         )
+    #     model = Reservation
+    #     fields = '__all__'
+
+    car = serializers.StringRelatedField()
+    car_id = serializers.IntegerField(required=False)
+
+    customer=serializers.StringRelatedField()
+    customer_id=serializers.IntegerField(required=False)
+
+    class Meta:
+        model=Reservation
+        fields = '__all__'
 
