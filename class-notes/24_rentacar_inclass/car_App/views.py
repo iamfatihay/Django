@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from .serializers import CarSerializer, ReservationSerializer
 from .models import Car, Reservation
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .permissions import IsAdminOrReadOnly
-from django.db.models import Q
+from django.db.models import Q, OuterRef, Exists
 
 
 # Create your views here.
@@ -39,13 +40,33 @@ class CarView(ModelViewSet):
             # not_available = Reservation.objects.filter( c1 & c2 ).values_list("id", flat=True)
             # queryset = queryset.exclude(id__in=not_available)
 
-            queryset = queryset.annotate(is_available = Reservation.objects.filter( c1 & c2 ))
-            not_available = Reservation.objects.filter( c1 & c2 ).values_list("id", flat=True)
+            #! SQL join yerine bu kullaniliyor:
+            queryset=queryset.annotate(
+                is_available= ~Exists(Reservation.objects.filter(
+                    Q(car=OuterRef('pk')) & c1 & c2
+                    )
+                )
+            )
+
+            #not_available = Reservation.objects.filter( c1 & c2 ).values_list("id", flat=True)
             #queryset = queryset.exclude(id__in=not_available)
 
         return queryset
 
 
-class ReservationView(ModelViewSet):
+class ReservationView(ListCreateAPIView):
     serializer_class = ReservationSerializer
     queryset = Reservation.objects.all()
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.user.is_staff:
+            return queryset
+        return queryset.filter(customer=self.request.user)
+    
+
+class ReservationView(RetrieveUpdateDestroyAPIView):
+    serializer_class = ReservationSerializer
+    queryset = Reservation.objects.all()
+    permission_classes = [IsAuthenticated]

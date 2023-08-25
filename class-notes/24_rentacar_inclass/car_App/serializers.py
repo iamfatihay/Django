@@ -3,8 +3,9 @@ from .models import Car, Reservation
 
 
 class CarSerializer(serializers.ModelSerializer):
+    is_available = serializers.BooleanField()
     class Meta:
-        is_available = serializers.BooleanField()
+        
         model = Car
         # fields="__all__"
         fields = (

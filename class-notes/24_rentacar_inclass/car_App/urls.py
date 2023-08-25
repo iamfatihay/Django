@@ -6,6 +6,6 @@ router = DefaultRouter()
 router.register("car", CarView)
 
 urlpatterns = [
-    # path('', include(router.urls)),
+    path('reservation/', ReservationView.as_view()),
 ]
 urlpatterns += router.urls
