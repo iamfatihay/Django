@@ -4,6 +4,8 @@ from .serializers import CarSerializer, ReservationSerializer
 from .models import Car, Reservation
 from rest_framework.permissions import IsAdminUser
 from .permissions import IsAdminOrReadOnly
+from django.db.models import Q
+
 
 # Create your views here.
 class CarView(ModelViewSet):
@@ -12,19 +14,36 @@ class CarView(ModelViewSet):
     permission_classes = [IsAdminOrReadOnly]
 
     def get_queryset(self):
-        # queryset = super().get_queryset()   #! 23.satirda "self." yazmassak bu satiri eklemeliyiz!
-        
-        
-        start = self.request.query_params.get('start')
-        end = self.request.query_params.get('end')
-
+        if self.request.user.is_staff:
+            queryset = super().get_queryset().filter()
+        else:
+            queryset = super().get_queryset().filter(availability=True)
+        start = self.request.query_params.get("start")
+        end = self.request.query_params.get("end")
+        # if start is not None and end is not None:
         if start and end:
-            not_available=Reservation.objects.filter(end_date__gt=start,start_date__lt=end).values_list('id',flat=True)
-            #! flat true id leri [1,3,7] listeye çeviriyor
-            queryset = self.queryset.exclude(id__in=not_available).filter(availability=True)
+            # select id from reservation where end_date>start and start_date<end
+
+            # not_available=Reservation.objects.filter(
+            #     end_date__gt=start,start_date__lt=end
+            #     ).values_list('id',flat=True)
+
+            # flat true id leri [1,3,7] listeye çeviriyor
+            # queryset=self.queryset.exclude(id__in=not_available)
+
+            # not_available=Reservation.objects.filter(
+            #     Q(end_date__gt=start) & Q(start_date__lt=end)
+            #     ).values_list('id',flat=True)
+            c1 = Q(end_date__gt=start)
+            c2 = Q(start_date__lt=end)
+            # not_available = Reservation.objects.filter( c1 & c2 ).values_list("id", flat=True)
+            # queryset = queryset.exclude(id__in=not_available)
+
+            queryset = queryset.annotate(is_available = Reservation.objects.filter( c1 & c2 ))
+            not_available = Reservation.objects.filter( c1 & c2 ).values_list("id", flat=True)
+            #queryset = queryset.exclude(id__in=not_available)
 
         return queryset
-    
 
 
 class ReservationView(ModelViewSet):

@@ -4,6 +4,7 @@ from .models import Car, Reservation
 
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
+        is_available = serializers.BooleanField()
         model = Car
         # fields="__all__"
         fields = (
@@ -14,6 +15,7 @@ class CarSerializer(serializers.ModelSerializer):
             "gear",
             "rent_per_day",
             "availability",
+            'is_available',
         )
     def get_fields(self):
         fields = super().get_fields()
