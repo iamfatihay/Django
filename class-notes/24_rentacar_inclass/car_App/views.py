@@ -6,6 +6,8 @@ from .models import Car, Reservation
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .permissions import IsAdminOrReadOnly
 from django.db.models import Q, OuterRef, Exists
+from django.utils import timezone
+from rest_framework.response import Response
 
 
 # Create your views here.
@@ -66,7 +68,33 @@ class ReservationView(ListCreateAPIView):
         return queryset.filter(customer=self.request.user)
     
 
-class ReservationView(RetrieveUpdateDestroyAPIView):
+class ReservationRUDView(RetrieveUpdateDestroyAPIView):
     serializer_class = ReservationSerializer
     queryset = Reservation.objects.all()
     permission_classes = [IsAuthenticated]
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.pop('partial', False)
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+
+        car = instance.car
+        today = timezone.now().date()
+        # start = instance.start_date
+        # end = instance.end_date
+        end = serializer.validated_data.get("end_date")
+        start = serializer.validated_data.get("start_date")
+
+        print("*******instance******")
+        print(car)
+        print(start)
+        print(end)
+
+        car_reservations = Reservation.objects.filter(car=car, end_date__gte=today)
+
+        if car_reservations:
+            for res in car_reservations:
+                if (res.start_date  <start < res.end_date) or (res.start_date  < end < res.end_date):
+                    return Response({"message": "Car is not available"})
+        return super().update( request, *args, **kwargs)
