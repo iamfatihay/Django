@@ -34,3 +34,9 @@ def body(request):
     }
     return render(request, "templateApp/index.html", context)
     # return render(request,'templateApp/index.html',{'name':'yunus'})
+
+def studentView(request):
+    context = {
+        
+    }
+    return render(request, "templateApp/student.html", context)
