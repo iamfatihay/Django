@@ -1,13 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>templates home page</title>
 </head>
+
 <body>
     <h1>CLARUSWAY</h1>
+    <h1>this template from App dir</h1>
     <!-- variables -->
-    {{ name }}
+    <p>{{ title }}</p>
+    <p>{{ path }}</p>
+    <p>{{ list.2 }}</p>
+    <p>{{ dict }}</p>
+    <p>{{ dict.k1 }}</p>
+    <p>{{ number }}</p>
+
+    <ul>
+        {% for name in list %}
+        <li>{{ name }}</li>
+        {% endfor %}
+    </ul>
+    
+    {% if number > 0 %}
+        number bigger than 0
+    {% else %}
+        number lower or equal to 0
+    {% endif %}
+
+    <!-- this line HTML comment -->
+
+    {# single line DTL comment #}
+
+    {% comment %}
+     this line DTL comment 
+    {% endcomment %}
+
+    <p>{{ description | title }}</p>
+
+
+
 </body>
+
 </html>
