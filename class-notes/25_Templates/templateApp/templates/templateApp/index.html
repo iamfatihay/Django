@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>templates home page</title>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="static/style.css">
 </head>
 
 <body>
@@ -23,11 +25,11 @@
         <li>{{ name }}</li>
         {% endfor %}
     </ul>
-    
+
     {% if number > 0 %}
-        number bigger than 0
+    number bigger than 0
     {% else %}
-        number lower or equal to 0
+    number lower or equal to 0
     {% endif %}
 
     <!-- this line HTML comment -->
@@ -35,10 +37,17 @@
     {# single line DTL comment #}
 
     {% comment %}
-     this line DTL comment 
+    this line DTL comment
     {% endcomment %}
 
-    <p>{{ description | title }}</p>
+    <p>{{ desc | title }}</p>
+    <p>{{ desc | wordcount }}</p>
+    <p>{{ desc | truncatechars:7 }}</p>
+
+    {% load static %}
+    
+    <img src=" {% static 'dogs.jpg' %} " alt="not found">
+
 
 
 
