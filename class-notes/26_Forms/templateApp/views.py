@@ -33,3 +33,14 @@ def studentView(request):
           'students':students,
           }             
      return render(request,'templateApp/student.html',context)
+
+
+#* #######################  Forms lessons  #########################
+from .forms import StudentForm
+
+def student_add(request):
+     form = StudentForm
+     context={ 
+          'form':form,
+          }
+     return render(request,'templateApp/student_add.html',context)
