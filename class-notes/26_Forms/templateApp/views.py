@@ -38,7 +38,7 @@ def studentView(request):
 #* #######################  Forms lessons  #########################
 from .forms import StudentForm
 
-def student_add(request):
+def student_addView(request):
      form = StudentForm
      context={ 
           'form':form,

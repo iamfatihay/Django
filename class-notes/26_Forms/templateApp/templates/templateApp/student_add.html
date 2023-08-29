@@ -1,7 +1,9 @@
-{% extends 'templateApp/base.html' %}
+{% extends 'templateApp/base.html' %} 
+{% block title %} 
+this page is for STUDENTADD 
+{% endblock title %} 
 
-
-{% block title %}
-    this page is for STUDENT ADD
-{% endblock title %}
-    
+{% block body %} 
+{% comment %} as_p html deki p tag igibi hareket etmesini sagliyor, yani alt alta geciyorlar {% endcomment %} 
+{{form.as_p }} 
+{% endblock body %}
