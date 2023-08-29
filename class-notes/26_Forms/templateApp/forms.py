@@ -1,6 +1,8 @@
 from django import forms
+from .models import Student
 
-class StudentForm(forms.Form):
-    first_name = forms.CharField()
-    last_name = forms.CharField()
-    number = forms.IntegerField()
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = "__all__"
+    

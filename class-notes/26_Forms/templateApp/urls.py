@@ -1,9 +1,12 @@
 from django.urls import path,include
-from .views import home,body,studentView, student_addView
+from .views import home,body,studentView, student_addView, StudentAddView
 urlpatterns = [
     path('', body),
     path('home', home),
-    path('student', studentView),
+    path('student', studentView, name="list"),
     # forms
-    path('add', student_addView)
+    # fbv
+    # path('add', student_addView),
+    # cbv
+    path('add', StudentAddView.as_view(), name="add")
 ]
