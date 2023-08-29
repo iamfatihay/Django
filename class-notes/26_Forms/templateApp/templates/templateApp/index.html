@@ -1,0 +1,50 @@
+ {% extends 'templateApp/base.html' %}
+ {% block title %}
+        index sayfasındasınız
+ {% endblock title %}   
+ {% block body %}
+    <h1>CLARUSWAY</h1>
+    <h1>this template from APP dir </h1>
+
+    <!-- variables -->
+    <p>{{ title }}</p> 
+    <p>{{ path }}</p> 
+    <p>{{ list }}</p>
+    <p>{{ list.1 }}</p> 
+    <p>{{ dict }}</p>
+    <p>{{ dict.k1 }}</p>
+    <p>{{ number }}</p>
+  
+    <ul>
+        {% for name in list  %}
+            <li>{{name}}</li> 
+        {% endfor %}
+    </ul>
+
+    
+    {% if number > 0 %}
+        number biger then 0
+    {% else %}
+        number lower or equal to 0    
+    {% endif %}
+
+    <!-- tihs line HTML comment -->
+
+    {# single line DTL comment #}
+
+    {% comment %} 
+    this line DTL comment 
+    {% endcomment %}
+
+    <p>{{ desc | title}}</p>
+    
+    <p>{{ desc | wordcount }}</p>
+    
+    <p>{{ desc | truncatechars:7 }}</p>
+
+    <!-- {% load static %} -->
+
+    <img src=" {% static 'dogs.jpg' %} " alt="not found">
+{% endblock body %}
+        
+    

@@ -1,0 +1,14 @@
+{% extends 'templateApp/base.html' %}
+
+{% block body %}
+    
+    {% for std in students %}
+        <li>{{ std }} </li>
+        <li>{{ std.first_name }} </li>
+        <li>{{ std.last_name }}</li>
+        <li>{{ std.number }}</li>
+
+    {% endfor %}
+        
+{% endblock body %}
+    
