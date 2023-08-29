@@ -44,12 +44,14 @@ def studentView(request):
     }
     return render(request, "templateApp/student.html", context)
 
-
-# * #######################  Forms lessons  #########################
+# * ################################################
+# * ############  Forms lessons  ###################
+# * ################################################
 from .forms import StudentForm
 from django.shortcuts import redirect
 from django.views import generic
 from django.urls import reverse_lazy
+
 
 def student_addView(request):
     form = StudentForm()
@@ -66,6 +68,27 @@ def student_addView(request):
 
 
 class StudentAddView(generic.CreateView):
+    model = Student
+    form_class = StudentForm
+    success_url = reverse_lazy("list")
+    template_name = "templateApp/student_add.html"
+
+
+class StudentListView(generic.ListView):
+    model = Student
+#     form_class = StudentForm
+#     success_url = reverse_lazy("list")
+#! default olarak student_list.html i kullaniyor
+#     template_name = "templateApp/student.html"
+
+
+class StudentDetailView(generic.DetailView):
+    model = Student
+    pk_url_kwarg = "id"
+#     template_name = "templateApp/student_add.html"
+
+
+class StudentUpdateView(generic.UpdateView):
     model = Student
     form_class = StudentForm
     success_url = reverse_lazy("list")

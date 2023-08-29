@@ -6,7 +6,7 @@ this page is for STUDENTADD
 {% block body %} 
 {% comment %}* as_p html deki p tag igibi hareket etmesini sagliyor, yani alt alta geciyorlar {% endcomment %} 
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
 {% comment %}* form post sirasinda sizmalari, taklitleri engellemek icin kullanilir {% endcomment %}
     {% csrf_token %} 
 

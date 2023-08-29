@@ -1,0 +1,18 @@
+{% extends 'templateApp/base.html' %}
+
+{% block body %}
+    
+    {% comment %} {% for std in object_list %}
+        <li>{{ std }} </li>
+        <li>{{ std.first_name }} </li>
+        <li>{{ std.last_name }}</li>
+        <li>{{ std.number }}</li>
+
+    {% endfor %} {% endcomment %}
+        
+{{ object.first_name }}
+{{ object.last_name }}
+<!-- <img src="{{ object.picture }}" alt="not found"> -->
+{{ object.picture }}
+
+{% endblock body %}
