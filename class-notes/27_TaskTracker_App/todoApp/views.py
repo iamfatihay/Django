@@ -35,7 +35,7 @@ def todo_update(request, pk):
     form = TodoForm(instance = todo)
     
 
-    if request.methof == "POST":
+    if request.method == "POST":
         form = TodoForm(request.POST, instance=todo)
         if form.is_valid():
             form.save()
