@@ -1,0 +1,12 @@
+{% extends 'todoApp/base.html' %}
+
+
+{% block container %}
+    <h2 class="text-center">DELETE PAGE</h2>
+    <form action="" method="POST">
+        {% csrf_token %}
+        {% comment %} {{ form.as_p }} {% endcomment %}
+        <input class="text-center" type="submit" value="DELETE">
+    </form>
+{% endblock container %}
+    

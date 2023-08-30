@@ -14,7 +14,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for todo in todos  %}
+            {% for todo in object_list  %}
             <tr>
                 <td>{{ todo.title }}</td>
                 <td>{{ todo.description }}</td>
@@ -37,7 +37,7 @@
                     {% endif %}
                 </td>
                 <td><a href="{% url "todo_update" todo.id %}">UPDATE</a></td>
-                <td><a href="{% url 'todo_delete' todo.id  %}" onclick="return confirm('Are you sure?')"> DELETE</a></td>
+                <td><a href="{% url "todo_delete" todo.id %}">DELETE</a></td>
             </tr>
             {% endfor %}
         </tbody>
