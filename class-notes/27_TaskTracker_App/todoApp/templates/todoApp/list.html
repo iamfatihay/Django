@@ -1,0 +1,20 @@
+{% extends 'todoApp/base.html' %}
+
+{% comment %}* base.html deki block ismi ile ayni ismi vermeliyiz dis bloga {% endcomment %}
+{% block title %}
+    todo list
+{% endblock title %}
+
+
+{% block container %}
+    
+    {% for todo in todos %}
+
+    <li>{{ todo.title }} - {{ todo.priority }}</li>
+    
+    {% endfor %}
+
+
+{% endblock container %}
+    
+    
