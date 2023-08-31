@@ -4,3 +4,9 @@ body{
 .navbar{
     background-color: #D1E6DD;
 }
+.homeImage {
+    background-image: url("../images/nadiasgarden.jpg");
+    background-size: cover;
+    background-position: center;
+    height: calc(100vh - 106px);
+}

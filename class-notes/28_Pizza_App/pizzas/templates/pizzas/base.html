@@ -16,8 +16,11 @@
   <body>
     {% comment %} <h1>base html page</h1> {% endcomment %}
     {% include 'pizzas/navbar.html' %}
-    {% block content %}
+    <div class="homeImage">
+      {% block content %}
 
-    {% endblock content %}
+      {% endblock content %}
+    </div>
+    
   </body>
 </html>
