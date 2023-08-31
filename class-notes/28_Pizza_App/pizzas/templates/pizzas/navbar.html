@@ -1,15 +1,34 @@
-{% load static %} 
+{% load static %}
 <!-- navbar start -->
 <nav class="navbar navbar-expand-lg navbar navbar-white">
-    <div class="container-fluid ">
-        <a class="navbar-brand alert-warning" href="/">
-        <img src="{% static 'images/nadia.jpeg' %}" alt="Hi!" width="80" height="80">
-        Nadia's Garden</a>
-        <div class="collapse navbar-collapse" id="navbars-host">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Pizzas</a></li>
-            </ul>
-        </div>
+  <div class="container-fluid">
+    <a class="navbar-brand alert-warning" href="/">
+      <img
+        src="{% static 'images/nadia.jpeg' %}"
+        alt="Hi!"
+        width="80"
+        height="80"
+      />
+      Nadia's Garden</a
+    >
+    <div class="collapse navbar-collapse" id="navbars-host">
+      <ul class="navbar-nav ms-auto">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'register' %}">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+        {% endif %}
+
+        <li class="nav-item"><a class="nav-link" href="#">Pizzas</a></li>
+      </ul>
     </div>
+  </div>
 </nav>
