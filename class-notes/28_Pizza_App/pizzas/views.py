@@ -12,3 +12,10 @@ def pizzas(request):
     }
 
     return render(request, "pizzas/pizzas.html", context)
+
+def order(request, pk):
+    pizza = Pizza.objects.get(id=pk)
+    context = {
+        'pizza':pizza
+    }
+    return render(request, "pizzas/order.html", context)

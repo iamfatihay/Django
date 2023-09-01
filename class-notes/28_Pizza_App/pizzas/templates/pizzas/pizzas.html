@@ -1,33 +1,41 @@
 {% extends 'pizzas/base.html' %}
-
-
 {% block content %}
-    <h2>pizzas page</h2>
-    
+<div class="d-flex justify-content-around flex-wrap pt-5">
     {% for pizza in pizzas %}
-    <div class="card mb-3" style="max-width: 540px;">
+    <div class="card m-4 shadow" style="max-width: 720px;">
         <div class="row g-0">
-          <div class="col-md-4">
-            <img class="image" src="{{ pizza.image.url }}" class="img-fluid rounded-start" alt="not found">
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title"> {{ pizza }} </h5>
-              <p class="card-text"> {{ pizza.price }} </p>
-                
-
-              <p class="card-text"> {{ pizza.topping.all | join:', ' }} </p>
-
-
-              {% comment %} <p class="card-text"><small class="text-body-secondary">{{ pizza.toppings }} </small></p> {% endcomment %}
+            <div class="col-md-4">
+                {% if pizza.image %}
+                <img src="{{ pizza.image.url }}" class="img-fluid rounded-start" style="height: 100%;">
+                {% endif %}
             </div>
-          </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ pizza.name }}</h5>
+                    <p class="card-text">
+                        <ul>
+                            {% comment %} <ul>
+                                {% for topping in pizza.topping.all %}
+                                  <li>{{ topping }}</li>
+                                {% endfor %}
+                              </ul> {% endcomment %}
+                            <li>
+                                {{ pizza.topping.all | join:', ' }}
+                            </li>
+                            <li>
+                                <strong> {{ pizza.price }} $</strong>
+                            </li>
+                        </ul>
+                    </p>
+                    {% if user.is_authenticated %}
+                    <p class="card-text"><a href="{% url 'order' pizza.id %}"><button class="btn btn-warning ms-1">Go to order </button></a></p>
+                    {% endif %}
+
+                </div>
+            </div>
         </div>
     </div>
     {% endfor %}
-        
-    
-
-
+</div>
 {% endblock content %}
     
