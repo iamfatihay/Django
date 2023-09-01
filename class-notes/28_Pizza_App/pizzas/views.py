@@ -40,9 +40,20 @@ def my_orders(request):
     return render(request, "pizzas/my_orders.html", context)
 
 
-def update(request):
-    
-    return render(request, "pizzas/my_orders.html")
+def update(request, pk):
+    order = Order.objects.get(id=pk)
+    pizza = Pizza.objects.get(id=order.pizza.id)
+    form = OrderForm(instance=order)
+    if request.method == 'POST':
+        form = OrderForm(request.POST, instance=order)
+        if form.is_valid():
+            order.save()
+            return redirect('myorders')
+    context = {
+        'pizza' : pizza,
+        'form' : form
+    }
+    return render(request, "pizzas/order.html", context)
 
 
 def delete(request, pk):
