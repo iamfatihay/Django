@@ -1,0 +1,33 @@
+{% extends 'pizzas/base.html' %}
+
+
+{% block content %}
+    <h2>pizzas page</h2>
+    
+    {% for pizza in pizzas %}
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img class="image" src="{{ pizza.image.url }}" class="img-fluid rounded-start" alt="not found">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"> {{ pizza }} </h5>
+              <p class="card-text"> {{ pizza.price }} </p>
+                
+
+              <p class="card-text"> {{ pizza.topping.all | join:', ' }} </p>
+
+
+              {% comment %} <p class="card-text"><small class="text-body-secondary">{{ pizza.toppings }} </small></p> {% endcomment %}
+            </div>
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+        
+    
+
+
+{% endblock content %}
+    
