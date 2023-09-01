@@ -24,8 +24,6 @@ def register(request):
     return render(request,'users/register.html',context)
 
 
-
-
 def user_login(request):
     
     form=AuthenticationForm(data=request.POST)
@@ -38,6 +36,7 @@ def user_login(request):
         'form':form
     }
     return render(request,'users/login.html',context)
+
 
 def user_logout(request):
     logout(request)
