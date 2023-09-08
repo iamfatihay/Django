@@ -57,3 +57,33 @@ class CategoryProductSerializer(ModelSerializer):
     def get_product_count(self,obj):
         return obj.products.count()
         # return Product.objects.filter(category_id=obj_id).count()
+
+
+class PurchasesSerializer(ModelSerializer):
+    user=serializers.SlugRelatedField
+    firm=serializers.StringRelatedField()
+    firm_id=serializers.IntegerField()
+    brand=serializers.StringRelatedField()
+    brand_id=serializers.IntegerField()
+    product=serializers.StringRelatedField()
+    product_id=serializers.IntegerField()
+    class Meta:
+        model=Purchases
+        fields=(
+            "user",
+            "firm",
+            "firm_id",
+            "brand",
+            "brand_id",
+            "product",
+            "product_id",
+            "quantity",
+            "price",
+            "price_total",
+            )
+        read_only_fields = ('price_total',)
+    
+    # def get_product_count(self,obj):
+    #     return obj.products.count()
+        # return Product.objects.filter(category_id=obj_id).count()
+
