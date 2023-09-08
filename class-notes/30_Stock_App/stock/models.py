@@ -54,7 +54,7 @@ class Purchases(FixFields):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     firm = models.ForeignKey(Firm, on_delete=models.CASCADE , related_name='purchases')
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, related_name='b_purchases')
-    products = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='p_purchases')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='p_purchases')
     quantity = models.SmallIntegerField()
     price = models.DecimalField(max_digits=8, validators=[MinValueValidator(0)], decimal_places=2)
     price_total = models.DecimalField(max_digits=8, validators=[MinValueValidator(0)], decimal_places=2)
