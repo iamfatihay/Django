@@ -31,7 +31,7 @@ class Brand(models.Model):
 class Product(FixFields):
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
-    brand=models.ForeignKey(Brand, on_delete=models.CASCADE,related_name="b_products")
+    brand=models.ForeignKey(Brand,null=True, on_delete=models.CASCADE,related_name="b_products")
     stock = models.SmallIntegerField(blank=True, default=0)
     
     
